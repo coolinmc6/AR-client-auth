@@ -63,7 +63,9 @@ component and how we wired our form into the rootReducer
 method and the password and email fields from our props object which is provided by reduxForm. We
 do this by: `const { handleSubmit, fields: { email, password }} = this.props;`
   - I have seen this before but I want to take another look at it.
-
+- NOT FINISHED
+- The console.log(email, password) in the Signin component is not working...it's not grabbing the
+values properly.
 
 
 
