@@ -66,11 +66,30 @@ do this by: `const { handleSubmit, fields: { email, password }} = this.props;`
 - NOT FINISHED
 - The console.log(email, password) in the Signin component is not working...it's not grabbing the
 values properly.
+- **FIX:** the issue was related to my redux-form version.  I had a 6.01 or so and when I want to console
+log it out, it returned `undefined` in the console.  I updated my package.json file to match Grider's
+and it worked.
+'''json
+"redux-form": "^5.0.1"
+```
 
+## Lecture 92: Action Creator with Many Responsibilities
+- User submits info => Action Creator submits email/password to server => if correct, return JWT and
+redirect to feature/protected resource; if not, show error message
+- So this one action is going to redirect the user, update our state and save our tokens
 
+## Lecture 93: Introducing Redux Thunk
+- ReduxPromise isn't what we want; we want ReduxThunk
+- The dispatch method makes sure all the action gets sent to all reducers. It is a key piece of Redux
+```sh
+npm i --save redux-thunk
+```
+- ReduxThunk is a middleware which we've imported into index.js and put in as an argument to our middleware
+function
+- adding ReduxThunk means that we can now return a **function** and not just an object from our action
+creators.  So our new action creator will be written to return a function.
 
-
-
+## Lecture 94: Signin Action Creator
 
 
 
