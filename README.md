@@ -1,5 +1,10 @@
 # README
 
+## Read later
+- CORS
+- .then()
+- .catch()
+
 ## Lecture 87: App Architecture
 
 ## Lecture 88: Component and State Design
@@ -90,6 +95,39 @@ function
 creators.  So our new action creator will be written to return a function.
 
 ## Lecture 94: Signin Action Creator
+- with ReduxThunk, we are no longer limited to issuing just one action
+- with ReduxThunk, there is no synchronous action here; the action will be called with dispatch but we
+can wait as long as we want before taking the next step
+- **This was a big section; might be worth re-visiting for set-up purposes**
+- This lecture is where we added the server from the last section.  I got an error because I needed to 
+create a config.js file in our server
+- When we tested our sign-in button, we got a 'No Access-Control-Allow-Origin' error
+
+## Lecture 95: CORS in a Nutshell
+- 'No Access-Control-Allow-Origin' is a CORS error: Cross-Origin Resource Sharing error
+- CORS is a security protocol; it is there to protect users in a browser environment
+- It's a security protocol and looks at your current domain and port
+- Why no errors with Postman?
+  - Headers can be faked easily; Postman is a dev tool, not a browser
+- CORS is really only to protect users in a browser.  So the browser is just trying to prevent users
+from making cross-origin API requests
+
+
+## Lecture 96: Serverside Solution for CORS
+- add cors library to server:
+```sh
+npm i --save cors
+```
+- we then imported it into our index.js file in our server AND made our app use it
+- After installing cors, I used Postman to create a new email-password combination (colin@example.com, 
+123).  After trying it in the browser, I was able to successfully receive a JWT
+
+## Lecture 97: Programmatic Navigation
+- Now, when we enter in a good email-password it changes the URL to '/feature' although there is no
+page yet for it.  With a bad email-password, we get denied
+
+
+
 
 
 
