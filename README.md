@@ -126,10 +126,42 @@ npm i --save cors
 - Now, when we enter in a good email-password it changes the URL to '/feature' although there is no
 page yet for it.  With a bad email-password, we get denied
 
+## Lecture 98: Updating Auth State
+- In this section created our `types.js` file under actions (our action types), we created a simple 
+authReducer
 
+## Lecture 99: Review
+- we don't need to store the JWT in our state, just the 'authenticated' boolean.
+- the JWT will be sent via our hearders in axios
+- good review, should revisit.  Good breakdown of main action creator
 
+## Lecture 100: LocalStorage and JWT
+- We are going to put our JWT into local storage
+- Saving to local storage is pretty easy; in our action creator: 
+`localStorage.setItem('token', response.data.token);` after the user has been successfully authenticated
+and we have recieved so back from our server
 
+## Lecture 101:
+- we created the authError action creator to catch errors
 
+## Lecture 102: Displaying Errors
 
+## Lecture 103: Header Logic
+
+## Lecture 104: Signout Component
+- we built the signout component
+- ...and added it to our router in `/src/index.js`
+
+## Lecture 105: Signout Action Creator
+- We then created the action creator for signing out the user.
+- It worked
+- One thing that I thought was interesting was that when the `Signout` button is clicked, we are loading
+the Signout component which initiates the sign-out process.  I probably would have assumed that when we
+clicked the button, the action creator would be called from Header component.  Instead, we use the
+lifecycle method, componentWillMount(), that calls `this.props.signoutUser()` which is the action creator
+that we just built.
+- `signoutUser()` does two main things: it removes the token: `localStorage.removeItem('token');` and then
+returns the `UNAUTH_USER` action type which, when passed through the authReducer, switches our 
+'authenticated' property in state to false.
 
 
