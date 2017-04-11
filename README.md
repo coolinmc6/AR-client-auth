@@ -271,13 +271,13 @@ not match: `{password.touched && password.error && <div className="error">{passw
 - we added a few more checks for our form, mainly on the existence of input in each of the fields
 
 ## Lecture 111: Signup Action Creator
+
+
+## Lecture 112: Finish Up Signup
 - I need to finish this up later but after adding the actions to our `export default reduxForm` 
 statement, I can successfully create a new record.
   - as a reminder, I setup the route in my server to receive signup requests from the `/signup` path.
   This is what it looks like: `app.post('/signup', Authentication.signup)`
-
-## Lecture 112: Finish Up Signup
-
 
 
 
