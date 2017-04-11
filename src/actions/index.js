@@ -57,3 +57,11 @@ export function signoutUser() {
 		type: UNAUTH_USER
 	}
 }
+
+export function signupUser({email, password}) {
+
+	// using ReduxThunk here
+	return function(dispatch) {
+		axios.post(`${ROOT_URL}/signup`, { email, password })
+	}
+}

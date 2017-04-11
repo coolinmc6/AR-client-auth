@@ -164,4 +164,124 @@ that we just built.
 returns the `UNAUTH_USER` action type which, when passed through the authReducer, switches our 
 'authenticated' property in state to false.
 
+## Lecture 106: Signup Component
+- boilerplate code; building component and adding route for it
+
+## Lecture 107: Signup Form Scaffolding
+- Here we built out the component using ReduxForm.  I want to a minute to quickly refresh HOW to setup
+a ReduxForm:
+1. Import the right items:
+```js
+import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
+import * as actions from '../../actions';
+```
+  - in addition to the normal React imports to make a class-based component, we need reduxForm AND
+  we need want to bring in all of our actions
+
+1. Build the component:
+
+```js
+class Signup extends Component {
+  render() {
+    
+    return (
+      <form>
+        <fieldset className="form-group">
+          <label>Email:</label>
+          <input className="form-control" {...email} />
+        </fieldset>
+        <fieldset>
+          <label>Password:</label>
+          <input className="form-control" type="password" {...password} />
+        </fieldset>
+        <fieldset>
+          <label>Confirm Password:</label>
+          <input className="form-control" type="password" {...passwordConfirm} />
+        </fieldset>
+        <br />
+        <button action="submit" className="btn btn-primary">Sign up</button>
+      </form>
+    )
+  }
+}
+```
+  - this is just the form with the fields for the user's email and then two password fields (chosen
+  password and confirmation);
+  - notice in the input I include `{...email}` or `{...password}`; they will be "enabled" in the next
+  steps by defining them.  They are actually helper functions that are provided by ReduxForm that allow
+  us certain functionality like showing an error to the user that we do below
+```js
+// code
+render() {
+  const { handleSubmit, fields: { email, password, passwordConfirm }} = this.props    
+  return (
+    <form>
+// code
+```
+  - to get access to the handleSubmit method that comes with ReduxForm as well as the fields I want,
+  I have to "peel off" the method and helpers from props.  The syntax used is (I believe) ES6.
+1. I need to connect my form to my global state and the component itself.  The syntax is not super
+difficult to understand but it does have a couple components.  First is the name of the form which
+doesn't really matter, it's whatever I want to call it, and then fields that I'll want in my form.
+  - This part could really be done second, right after I make the necessary import statements.  It
+  probably would be best to do that so that I can properly plan which fields I'll want in my form.
+
+```js
+export default reduxForm({
+  form: 'signup',
+  fields: ['email', 'password', 'passwordConfirm']
+})(Signup);
+```
+  - **Note:** what Grider initially failed to include was our actions to the reduxForm.  So after the
+  reduxForm object, we need to add 'null' and our 'actions'.  This is what the good version looks like:
+```js
+export default reduxForm({
+  form: 'signup',
+  fields: ['email', 'password', 'passwordConfirm'],
+  validate
+}, null, actions)(Signup);
+```
+
+## Lecture 108: Redux Form Validation
+- 
+
+## Lecture 109: Implementing Validation Logic
+- validate function is called when the user tries to submit
+- if we want to show an error, in the validate() function we simply add a property to the errors
+object with that name of the field (i.e. email, password, passwordConfirm) and then a string that
+is the error that we want to display to the user.
+- Here is the validate function thus far:
+```js
+function validate(formProps) {
+  const errors = {};
+
+  if(formProps.password !== formProps.passwordConfirm) {
+    errors.password = 'Passwords must match'
+    console.log(errors);
+  }
+
+  return errors;
+}
+```
+- And this bit of code is what we added to show the user an error when the password they entered does
+not match: `{password.touched && password.error && <div className="error">{password.error}</div>}`
+
+## Lecture 110: More on Validation
+- we added a few more checks for our form, mainly on the existence of input in each of the fields
+
+## Lecture 111: Signup Action Creator
+- I need to finish this up later but after adding the actions to our `export default reduxForm` 
+statement, I can successfully create a new record.
+  - as a reminder, I setup the route in my server to receive signup requests from the `/signup` path.
+  This is what it looks like: `app.post('/signup', Authentication.signup)`
+
+## Lecture 112: Finish Up Signup
+
+
+
+
+
+
+
 
