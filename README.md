@@ -278,6 +278,16 @@ not match: `{password.touched && password.error && <div className="error">{passw
 statement, I can successfully create a new record.
   - as a reminder, I setup the route in my server to receive signup requests from the `/signup` path.
   This is what it looks like: `app.post('/signup', Authentication.signup)`
+- **NOTE:** I received a 422 (which is correct) and this error: 
+`Uncaught (in promise) TypeError: Cannot read property 'error' of undefined`.  I looked at the error location and it's the signupUser action creator.  I tried troubleshooting but then used Grider's exact code so I'm afraid something might be off in the server that I am using (though I thought I used his version and not mine).  Either way, I am going to finish the project and then try downloading his server and see if this code works.
+
+## Lecture 113: Securing Individual Routes
+- We brought in our code for require_auth, a Higher Order Component that we built a couple sections
+ago. 
+- To protect a route, we simply wrap whatever component we want to protect (require authentication)
+in our RequireAuth component.  Like so...`<Route path="feature" component={RequireAuth(Feature)} />`
+
+
 
 
 
