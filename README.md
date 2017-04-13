@@ -287,11 +287,62 @@ ago.
 - To protect a route, we simply wrap whatever component we want to protect (require authentication)
 in our RequireAuth component.  Like so...`<Route path="feature" component={RequireAuth(Feature)} />`
 
+## Lecture 115: Automatically Authenticating Users
+- Here is a quick summary of what we did:
+  - we removed our long store statement `createStoreWithMiddleware(reducers)` from the Provider tag
+  - ...and created a new const called `store`
+  - We then grabbed the user's token if they had one `const token = localStorage.getItem('token');`
+  - If they had one, then we issued an action `store.dispatch({ type: AUTH_USER })` to say that the
+  user was authenticated
 
+## Lecture 116: Making Authenticated API Requests
+- One of the key parts of making authenticated requests is that when we send our request, we also
+send along our token.  We do that by using axios and then in the header, which is placed in an object
+after our url, there is an authorization property:
+```js
+export function fetchMessage() {
+  return function(dispatch) {
+    axios.get(ROOT_URL, {
+      headers: { authorization: localStorage.getItem('token')}
+    })
+      .then(response => {
+        console.log(response);
+      })
+  }
+}
+```
 
+## Lecture 117: Handling Data from Authenticated Requests
+- We finished the fetchMessage() action creator:
+```js
+export function fetchMessage() {
+  return function(dispatch) {
+    axios.get(ROOT_URL, {
+      headers: { authorization: localStorage.getItem('token')}
+    })
+      .then(response => {
+        dispatch({
+          type: FETCH_MESSAGE,
+          payload: response.data.message
+        })
+      })
+  }
+}
+```
+- if we used ReduxPromise, it could've looked like this:
+```js
+// with Redux Promise
+export function fetchMessage() {
+ const request = axios.get(ROOT_URL, {
+   headers: { authorization: localStorage.getItem('token')}
+ })
 
-
-
+ return {
+   type: FETCH_MESSAGE,
+   payload: request
+ }
+}
+```
 
 
 
